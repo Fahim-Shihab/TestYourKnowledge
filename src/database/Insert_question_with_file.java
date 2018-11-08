@@ -48,7 +48,8 @@ public class Insert_question_with_file extends Database_connector {
 
                 this.option3 = fileData[lineNo];
 
-                String insert = "INSERT INTO " + subject + "(Question, Answer, Option1, Option2, Option3 ) VALUES ('" + question + "','" + answer + "','" + option1 + "','" + option2 + "','" + option3 + "')";
+                String insert = "INSERT INTO " + subject
+                        + "(Question, Answer, Option1, Option2, Option3 ) VALUES ('" + question + "','" + answer + "','" + option1 + "','" + option2 + "','" + option3 + "')";
                 PreparedStatement insert_QnS = conn.prepareStatement(insert);
                 insert_QnS.executeUpdate();
 

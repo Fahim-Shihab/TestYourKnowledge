@@ -13,7 +13,6 @@ public class Show_question_with_options extends Show {
     public String[] option3 = new String[50];
     public int[] id_question_ans_opts = new int[50];
 
-
     public Show_question_with_options(String subject) throws SQLException {
         this.subject = subject;
         ResultSet rs = statement.executeQuery("SELECT id,Question,Answer,Option1,Option2,Option3 FROM "+subject+"");

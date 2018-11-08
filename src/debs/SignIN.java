@@ -1,3 +1,5 @@
+package debs;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Main;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
@@ -22,6 +25,7 @@ import java.util.StringTokenizer;
 public class SignIN extends Application {
     public static Scene scene;
     public static Stage SignInStage = new Stage();
+    public static String UserID;
     public Mediator med;
 
     public SignIN(Mediator med) {
@@ -60,9 +64,10 @@ public class SignIN extends Application {
 
                 if(success){
                     med.setUser(txtID.getText());
-                    Score score= new Score(med);
+                    UserID = new String(txtID.getText());
                     try {
-                        score.start(Score.classStage);
+                        Main main= new Main(med);
+                        main.start(Main.clsStage);
                         Stage stage = (Stage) button1.getScene().getWindow();
                         stage.close();
                     } catch (Exception e) {

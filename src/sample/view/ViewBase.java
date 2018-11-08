@@ -1,5 +1,9 @@
 package sample.view;
 
+import database.Add_new_subject;
+import database.Database_connector;
+import debs.Mediator;
+import debs.SignIN;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,11 +22,14 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class ViewBase implements ViewMaker {
+public class ViewBase extends Database_connector implements ViewMaker {
     private Stage stage;
     private String labelText;
     private String subject;
@@ -32,8 +39,9 @@ public class ViewBase implements ViewMaker {
 
     Label time = new Label();
 
-    public ViewBase(Stage stage, String labelText, String subject,
-                    EventHandler<? super MouseEvent> handlerBack, EventHandler<? super MouseEvent> handlerNext) {
+    public ViewBase (Stage stage, String labelText, String subject,
+                    EventHandler<? super MouseEvent> handlerBack,
+                     EventHandler<? super MouseEvent> handlerNext) throws SQLException{
         if (stage == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
@@ -50,6 +58,17 @@ public class ViewBase implements ViewMaker {
         this.subject = subject;
         this.handlerBack = handlerBack;
         this.handlerNext = handlerNext;
+
+        try {
+            PreparedStatement createTable1 = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Score"+
+                    "(id int NOT NULL AUTO_INCREMENT," +
+                    " UserID varchar(500), " +
+                    "Subject varchar(500), " +
+                    "Marks varchar(500)," +" PRIMARY KEY(id))") ;
+            createTable1.executeUpdate();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
     }
 
     @Override
@@ -62,7 +81,7 @@ public class ViewBase implements ViewMaker {
         root.setVgap(5);
         root.setAlignment(Pos.BASELINE_LEFT);
 
-        System.out.println("the........."+subject+"............");
+//        System.out.println("the........."+subject+"............");
 
 
         /*Thread getScene = new Thread(){
@@ -125,8 +144,6 @@ public class ViewBase implements ViewMaker {
             Random rand = new Random();
             int random = rand.nextInt(4);
 
-            System.out.println("Random number: "+random);
-
             int p = 4 * (i + 1) + 1 + 2 * i;
             int q = 4 * (i + 1) + 2 + 2 * i;
             int r = 4 * (i + 1) + 3 + 2 * i;
@@ -177,7 +194,21 @@ public class ViewBase implements ViewMaker {
                     Text warning = new Text("You can't select more than one answer for a single question");
                     root.add(warning,54,62);
                 }
-                    else nextButton.setOnMousePressed(handlerNext);
+                    else{
+                    Mediator med = new Mediator();
+                        nextButton.setOnMousePressed(handlerNext);
+
+                    String insert = "INSERT INTO Score " +
+                            "(UserID, Subject, Marks ) VALUES ('" +
+                            SignIN.UserID + "','" + subject + "','" +score+"')";
+                    PreparedStatement insert_QnS = null;
+                    try {
+                        insert_QnS = conn.prepareStatement(insert);
+                        insert_QnS.executeUpdate();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
 
