@@ -60,7 +60,7 @@ public class MainView implements ViewMaker {
         bbar.getButtons().add(closeButton);
         root.setBottom(bbar);
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1200, 900);
 
         return scene;
     }

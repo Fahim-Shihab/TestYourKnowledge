@@ -1,0 +1,50 @@
+1. The complexity of linear search algorithm is
+O(n)
+O(log n)
+O(n2)
+O(n log n)
+2. The complexity of Binary search algorithm is
+O(n)
+O(log )
+O(n2)
+O(n log n)
+3. The complexity of Bubble sort algorithm is
+O(n)
+O(log n)
+O(n2)
+O(n log n)
+4. The complexity of merge sort algorithm is
+O(n)
+O(log n)
+O(n2)
+O(n log n)
+5. Which of the following algorithm does not divide the list −
+linear search
+binary search
+merge sort
+quick sort
+6. Binary search tree has best case run-time complexity of Ο(log n). What could the worst case?
+Ο(n)
+Ο(n2)
+Ο(n3)
+None of the above
+7. Quick sort running time depends on the selection of
+size of array
+pivot element
+sequence of values
+none of the above!
+8. The worst case occur in linear search algorithm when
+Item is somewhere in the middle of the array
+Item is not in the array at all
+Item is the last element in the array
+Item is the last element in the array or item is not there at all
+9. Which of the following sorting algorithm is of priority queue sorting type?
+Bubble sort
+Insertion sort
+Merge sort
+Selection sort
+10. In …………………, a directed graph G is acylic if and only if a DFS of G yields no back edge.
+Graph transpose problem
+Strongly connected components problem
+Topological sort problem
+Euler path problem

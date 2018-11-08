@@ -16,7 +16,6 @@ import database.Show_question_with_options;
 public class Main extends Application {
 
     private static Map<SceneName, Scene> scenes = new HashMap<>();
-    private GridPane grid = new GridPane();
 
     @Override
     public void start(Stage stage) throws SQLException {
@@ -40,7 +39,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) throws SQLException{
-   
 
         launch(args);
 

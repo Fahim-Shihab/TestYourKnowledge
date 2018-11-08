@@ -18,7 +18,6 @@ public class Login extends Application {
      launch(args);
     }
 
-
     @Override
     public void start(Stage window) throws Exception {
 
@@ -32,26 +31,18 @@ public class Login extends Application {
         TextField getName = new TextField();
         GridPane.setConstraints(getName,1,0);
 
-
         Label pass_label = new Label("Password: ");
         GridPane.setConstraints(pass_label,0,1);
         PasswordField getPass = new PasswordField();
         GridPane.setConstraints(getPass,1,1);
-
-
-
 
         CheckBox Student = new CheckBox("Student");
         CheckBox Teacher = new CheckBox("Teacher");
         GridPane.setConstraints(Student,1,2);
         GridPane.setConstraints(Teacher,1,3);
 
-
         String name = getName.getText();
         String pass = getPass.getText();
-
-
-
 
         Button ok = new Button("Log In");
         ok.setOnAction(e-> {
@@ -72,7 +63,6 @@ public class Login extends Application {
                     System.out.println("Goto main page and open editing mode");
                 }
 
-
                 window.close();
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -80,30 +70,13 @@ public class Login extends Application {
 
             }
 
-
         });
 
-
-
         GridPane.setConstraints(ok,1,4);
-
-
-
-
-
-
-
-
-
-
-
 
         grid.getChildren().addAll(name_label,getName,pass_label,getPass,Student,Teacher,ok);
         Scene scene = new Scene(grid, 340,200);
         window.setScene(scene);
         window.show();
-
-
-
     }
 }

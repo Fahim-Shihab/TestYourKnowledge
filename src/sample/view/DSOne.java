@@ -7,7 +7,7 @@ public class DSOne extends ViewBase {
 
     public DSOne(Stage stage) {
 
-        super(stage, "Data Structure questions", "data_structure",
+        super(stage, "Data Structure questions", "Data_Structure",
                 e -> new DSOneController(stage).handleMousePress(e),
                 event -> new DSOneController(stage).handleNextButtonPress(event));
 

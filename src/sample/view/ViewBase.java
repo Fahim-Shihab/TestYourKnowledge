@@ -50,15 +50,7 @@ public class ViewBase implements ViewMaker {
         this.subject = subject;
         this.handlerBack = handlerBack;
         this.handlerNext = handlerNext;
-
     }
-
-
-
-
-
-
-
 
     @Override
     public Scene getScene() throws SQLException {
@@ -92,36 +84,13 @@ public class ViewBase implements ViewMaker {
 
         };*/
 
-
-        root.add(label,2,0,48,1);//////////////////////////////// ////
-
-
+        root.add(label,2,0,48,1);
 
         ScrollPane scrollPane = new ScrollPane();
-        //scrollPane.setContent(root);
-
-        /*String[] fileData = new String[60];
-        int lines=1;
-        FileReader fr= null;
-
-        try {
-            fr = new FileReader(""+subject);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }*/
-        //Fetching information from database
 
         Show_question_with_options show = new Show_question_with_options(subject);
 
-       /* BufferedReader br = new BufferedReader(fr);
-        Scanner sc = new Scanner(br);
-        while(sc.hasNext()){
-            fileData[lines]=sc.nextLine()+".";
-            lines++;
-        }*/
-
-
-
+        int length = show.question.length;
 
        root.add(time,10,0);
         Text[] Question;
@@ -131,10 +100,10 @@ public class ViewBase implements ViewMaker {
         CheckBox[] Options2 = new CheckBox[50];
         CheckBox[] Options3 = new CheckBox[50];
 
-        for(int i=0; i<10; i++){
+        for(int i=0; i<length; i++){
             Question[i] = new Text(show.question[i]);
         }
-        for(int i = 0; i<10; i++)
+        for(int i = 0; i<length; i++)
         {
             answer[i] = new CheckBox(show.answer[i]);
             answer[i].setMnemonicParsing(false);
@@ -151,7 +120,7 @@ public class ViewBase implements ViewMaker {
         }
 
 
-        for(int i=0; i<10; i++) {
+        for(int i=0; i<length; i++) {
 
             Random rand = new Random();
             int random = rand.nextInt(4);
@@ -195,19 +164,18 @@ public class ViewBase implements ViewMaker {
             @Override
             public void handle(ActionEvent e) {
                 int selected = 0, score=0;
-                for(int i=0; i<10; i++){
+                for(int i=0; i<length; i++){
                     if(answer[i].isSelected())  {
                         selected++;
                         score++;
                     }
-                    if(Options1[i].isSelected()) selected++;
-                    if(Options2[i].isSelected()) selected++;
-                    if(Options3[i].isSelected())    selected++;
+                    if(Options1[i].isSelected() || Options2[i].isSelected() || Options3[i].isSelected())
+                        selected++;
                 }
                 System.out.println("Selected optins: "+selected+" Score = "+score);
                 if(selected>10) {
                     Text warning = new Text("You can't select more than one answer for a single question");
-                    root.add(warning,64,62);
+                    root.add(warning,54,62);
                 }
                     else nextButton.setOnMousePressed(handlerNext);
             }
@@ -222,6 +190,6 @@ public class ViewBase implements ViewMaker {
 
         scrollPane.setContent(root);
 
-        return new Scene(scrollPane,1000,600);
+        return new Scene(scrollPane,1200,900);
     }
 }
