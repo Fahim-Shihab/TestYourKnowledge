@@ -26,8 +26,6 @@ public class Add_new_subject extends Database_connector {
             System.out.println(rs.getString(1));
             if(subject_name.equals(rs.getString(1)))
             flag = 1;
-
-
             //System.out.println(rs.getString(1));
             //  System.out.println(this.subject_array[i-1]);
         }
