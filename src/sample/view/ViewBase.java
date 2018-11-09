@@ -2,6 +2,7 @@ package sample.view;
 
 import database.Add_new_subject;
 import database.Database_connector;
+import database.Show_score;
 import debs.Mediator;
 import debs.SignIN;
 import javafx.event.ActionEvent;
@@ -36,6 +37,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
     private EventHandler<? super MouseEvent> handlerBack;
     private EventHandler<? super MouseEvent> handlerNext;
     private int score=0;
+    private boolean doNotInsert=false;
 
     Label time = new Label();
 
@@ -109,7 +111,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
 
         Show_question_with_options show = new Show_question_with_options(subject);
 
-        int length = show.question.length;
+        int length = show.tableShowLength;
 
        root.add(time,10,0);
         Text[] Question;
@@ -195,19 +197,41 @@ public class ViewBase extends Database_connector implements ViewMaker {
                     root.add(warning,54,62);
                 }
                     else{
-                    Mediator med = new Mediator();
-                        nextButton.setOnMousePressed(handlerNext);
 
-                    String insert = "INSERT INTO Score " +
-                            "(UserID, Subject, Marks ) VALUES ('" +
-                            SignIN.UserID + "','" + subject + "','" +score+"')";
-                    PreparedStatement insert_QnS = null;
                     try {
-                        insert_QnS = conn.prepareStatement(insert);
-                        insert_QnS.executeUpdate();
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
+                        Show_score showScore = new Show_score(SignIN.UserID, "Score");
+
+                        if(showScore.tablelength!=0){
+                        for (int i = 0; i < showScore.tablelength; i++) {
+                            if (showScore.user[i].equals(SignIN.UserID) &&
+                                    showScore.subject_name[i].equals(subject)) {
+                                String update = "UPDATE Score SET Marks = '" + score +
+                                        "' WHERE UserID = '" + showScore.user[i] +
+                                        "' and Subject = '" + showScore.subject_name[i] + "'";
+                                PreparedStatement insert_QnS = null;
+
+                                insert_QnS = conn.prepareStatement(update);
+                                insert_QnS.executeUpdate();
+                                doNotInsert = true;
+                            }
+                        }}
+
+                        if (!doNotInsert) {
+                            String insert = "INSERT INTO Score " +
+                                    "(UserID, Subject, Marks ) VALUES ('" +
+                                    SignIN.UserID + "','" + subject + "','" + score + "')";
+                            PreparedStatement insert_QnS = null;
+
+                            insert_QnS = conn.prepareStatement(insert);
+                            insert_QnS.executeUpdate();
+                        }
+                        } catch(SQLException e1){
+                            e1.printStackTrace();
+                        }
+
+
+                    nextButton.setText("Finish");
+                    nextButton.setOnMousePressed(handlerNext);
                 }
             }
         });

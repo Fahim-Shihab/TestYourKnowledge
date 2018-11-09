@@ -12,6 +12,7 @@ public class Show_question_with_options extends Show {
     public String[] option2 = new String[50];
     public String[] option3 = new String[50];
     public int[] id_question_ans_opts = new int[50];
+    public int tableShowLength;
 
     public Show_question_with_options(String subject) throws SQLException {
         this.subject = subject;
@@ -24,6 +25,7 @@ public class Show_question_with_options extends Show {
             this.option1[i] = rs.getString(4);
             this.option2[i] = rs.getString(5);
             this.option3[i] = rs.getString(6);
+            tableShowLength++;
 
         }
     }

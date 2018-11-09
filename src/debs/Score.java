@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.controller.MainController;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class Score extends Application {
 
     private void init(GridPane gridPane) throws IOException, SQLException {
         Show_score sh = new Show_score(userID,"Score");
-        int length = sh.subject_name.length;
+        int length = sh.tablelength;
 
         Text text[]= new Text[length];
         TextField scr[]= new TextField[length];
@@ -76,9 +77,20 @@ public class Score extends Application {
         //Setting the Grid alignment
         gridPane.setAlignment(Pos.CENTER);
 
+        Button back = new Button("Back");
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+
+                  classStage.close();
+            }
+        });
+
         //Arranging all the nodes in the grid
         for(int i=0;i<length;i++) gridPane.add(text[i], 0, i);
         for(int i=0;i<length;i++) gridPane.add(scr[i], 1, i);
+
+        gridPane.add(back,4,length+2);
 
         //gridPane.setStyle("-fx-background-color: BEIGE;");
         gridPane.setStyle("-fx-background-color: #008080;");
@@ -88,8 +100,7 @@ public class Score extends Application {
     }
 
     void setScore(Text text[], TextField scr[]) throws IOException, SQLException {
-        //FileReader fin= new FileReader("Score.txt");
-        //Scanner sc= new Scanner(fin);
+
         int i=1;
 
         userID= med.getUser(); //usage of mediator pattern
@@ -97,14 +108,8 @@ public class Score extends Application {
         text[0].setText("User");
         scr[0].setText(userID);
 
-
-        /*while(sc.hasNext()) {
-            String str = sc.nextLine();
-            StringTokenizer st = new StringTokenizer(str);
-            String txtid = st.nextToken();*/
-
         Show_score sh = new Show_score(userID,"Score");
-        int length = sh.subject_name.length;
+        int length = sh.tablelength;
 
         for(i=0; i<length; i++){
             if(userID.equals(sh.user[i])) {
@@ -112,10 +117,5 @@ public class Score extends Application {
                 scr[i].setText(sh.marks[i]);
             }
         }
-
-        //}
-
-        //fin.close();
-        //sc.close();
     }
 }
