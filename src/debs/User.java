@@ -1,3 +1,5 @@
+package debs;
+
 public class User {
     String userID;
     String pass;

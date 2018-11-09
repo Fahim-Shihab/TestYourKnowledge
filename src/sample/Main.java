@@ -37,6 +37,8 @@ public class Main extends Application {
 
         // Start with the main scene
         stage.setScene(scenes.get(SceneName.MAIN));
+        stage.setMinHeight(900);
+        stage.setMinWidth(1200);
         stage.setTitle("Test Your Knowledge");
         stage.show();
     }

@@ -1,3 +1,5 @@
+package debs;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.model.SceneName;
+import sample.view.MainView;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,6 +28,7 @@ public class SignIN extends Application {
     public static Stage classStage = new Stage();
     public Mediator med;
     public UserRepository userRepository;
+    public static String UserID;
 
     public SignIN(Mediator med) {
         this.med = med;
@@ -60,12 +66,15 @@ public class SignIN extends Application {
                 boolean success= signIn(txtID.getText(),txtPass.getText());
 
                 if(success){
+                    UserID = new String(txtID.getText());
                     med.setUser(txtID.getText());
                     Score score= new Score(med);
+                    Main main = new Main(med);
                     try {
-                        score.start(Score.classStage);
-                        Stage stage = (Stage) button1.getScene().getWindow();
-                        stage.close();
+                        main.start(stage);
+                        /*score.start(Score.classStage);
+                        Stage stage = (Stage) button1.getScene().getWindow();*/
+                        //stage.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
