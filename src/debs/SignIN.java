@@ -1,5 +1,3 @@
-package debs;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,9 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import sample.Main;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,12 +20,13 @@ import java.util.StringTokenizer;
 
 public class SignIN extends Application {
     public static Scene scene;
-    public static Stage SignInStage = new Stage();
-    public static String UserID;
+    public static Stage classStage = new Stage();
     public Mediator med;
+    public UserRepository userRepository;
 
     public SignIN(Mediator med) {
         this.med = med;
+        userRepository= new UserRepository();
     }
 
     public static void main(String args[]) {
@@ -64,15 +61,17 @@ public class SignIN extends Application {
 
                 if(success){
                     med.setUser(txtID.getText());
-                    UserID = new String(txtID.getText());
+                    Score score= new Score(med);
                     try {
-                        Main main= new Main(med);
-                        main.start(Main.clsStage);
+                        score.start(Score.classStage);
                         Stage stage = (Stage) button1.getScene().getWindow();
                         stage.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                else{
+
                 }
 
             }
@@ -124,7 +123,7 @@ public class SignIN extends Application {
         //Creating a scene object
         scene = new Scene(gridPane);
 
-        SignInStage= stage;
+        classStage = stage;
         //Setting title to the Stage
         stage.setTitle("CSS Example");
 
@@ -150,14 +149,46 @@ public class SignIN extends Application {
         else if(Pass.equals("")){
             alert.setHeaderText("PassWord is Empty");
             alert.showAndWait();
-
         }
         else{
             try {
+                userRepository= new UserRepository();
+
                 FileReader fin= new FileReader("ids.txt");
                 Scanner sc= new Scanner(fin);
 
                 while(sc.hasNext()){
+                    String str= sc.nextLine();
+                    StringTokenizer st= new StringTokenizer(str);
+                    String txtid = st.nextToken();
+                    String pass = st.nextToken();
+
+                    userRepository.users.add(new User(txtid,pass));
+                }
+
+                Iterator itr= userRepository.getIterator();
+
+                for( ;itr.hasNext();){
+                    User user= (User) itr.next();
+
+                    String txtid = user.userID;
+
+                    if(ID.equals(txtid)){
+                        if(Pass.equals(user.pass)){
+                            flag=1;
+
+                            //currentID=ID;
+                            alert.setHeaderText("Logged in as "+ID);
+                            alert.showAndWait();
+                            fin.close();
+
+                            return true;
+                        }
+                    }
+
+                }
+
+                /*while(sc.hasNext()){
                     String str= sc.nextLine();
                     StringTokenizer st= new StringTokenizer(str);
                     String txtid = st.nextToken();
@@ -178,7 +209,7 @@ public class SignIN extends Application {
                     }
 
 
-                }
+                }*/
                 fin.close();
                 if(flag==0){
                     alert.setHeaderText("UserID ans Password didn't match");
