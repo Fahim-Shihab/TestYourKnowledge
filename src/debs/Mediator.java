@@ -1,5 +1,3 @@
-package debs;
-
 public class Mediator implements IMediator {
     String userID;
     @Override

@@ -1,5 +1,3 @@
-package debs;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,13 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.Optional;
 import java.util.Scanner;
@@ -46,7 +40,12 @@ public class Authentication extends Application {
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                login(txtID.getText(),txtPass.getText(),txtID,txtPass);
+                boolean success= login(txtID.getText(),txtPass.getText(),txtID,txtPass);
+
+                if(success) {
+                    Stage stage = (Stage) button1.getScene().getWindow();
+                    stage.close();
+                }
 
             }
         });
@@ -55,7 +54,7 @@ public class Authentication extends Application {
             @Override
             public void handle(ActionEvent event) {
                 SignIN sin= new SignIN(med);
-                sin.start(sin.SignInStage);
+                sin.start(sin.classStage);
 
                 Stage stage = (Stage) button2.getScene().getWindow();
                 stage.close();
@@ -113,7 +112,7 @@ public class Authentication extends Application {
     }
 
 
-    public void login(String newUser, String newPassword, TextField txtNewID, PasswordField txtNewPass) {
+    public boolean login(String newUser, String newPassword, TextField txtNewID, PasswordField txtNewPass) {
         int flag= 0;
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -135,6 +134,7 @@ public class Authentication extends Application {
             txtNewPass.setText("");
 
         }
+
         else if(newPassword.equals("")){
             alert.setHeaderText("Password is Empty");
             alert.showAndWait();
@@ -151,11 +151,37 @@ public class Authentication extends Application {
 
         else{
             try {
+                UserRepository userRepo= new UserRepository();
+
                 FileReader fin = new FileReader("ids.txt");
                 BufferedWriter bw = null;
                 Scanner sc = new Scanner(fin);
 
                 while (sc.hasNext()) {
+                    String str = sc.nextLine();
+                    StringTokenizer st = new StringTokenizer(str);
+                    String txtid = st.nextToken();
+                    String txtpassword = st.nextToken();
+
+                    userRepo.users.add(new User(txtid,txtpassword));
+                }
+
+                Iterator itr= userRepo.getIterator();
+
+                for(;itr.hasNext() ;){
+                    User u= (User) itr.next();
+                    String txtid = u.userID;
+                    String txtpassword = u.pass;
+
+                    if (newUser.equals(txtid)) {
+                        alert.setHeaderText("UserID already exists");
+                        Optional<ButtonType> results = alert.showAndWait();
+                        flag = 1;
+                        return false;
+                    }
+                }
+
+                /*while (sc.hasNext()) {
                     String str = sc.nextLine();
                     StringTokenizer st = new StringTokenizer(str);
                     String txtid = st.nextToken();
@@ -167,7 +193,7 @@ public class Authentication extends Application {
                         flag = 1;
                     }
 
-                }
+                }*/
 
                 if (flag == 0) {
                     try {
@@ -176,8 +202,15 @@ public class Authentication extends Application {
                         bw.newLine();
                         bw.flush();
 
-                        alert.setHeaderText("Account Successfully Created");
+                        alert.setHeaderText("Account Successfully Created!\nLogin to verify.");
                         Optional<ButtonType> process = alert.showAndWait();
+
+                        SignIN signIN= new SignIN(med);
+                        signIN.start(SignIN.classStage);
+
+                        return true;
+
+
 
                     }
                     catch (IOException ex) {
@@ -200,5 +233,6 @@ public class Authentication extends Application {
             }
         }
 
+        return false;
     }
 }
