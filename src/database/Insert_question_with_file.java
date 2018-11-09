@@ -21,10 +21,6 @@ public class Insert_question_with_file extends Database_connector {
 
         this.subject = subject;
 
-        String delete = "DELETE FROM "+ subject;
-        PreparedStatement delete_QmS = conn.prepareStatement(delete);
-        delete_QmS.execute();
-
         String[] fileData = new String[60];
         int lines=1, lineNo=1;
         FileReader fr= null;
@@ -35,7 +31,7 @@ public class Insert_question_with_file extends Database_connector {
         }
         BufferedReader br = new BufferedReader(fr);
         Scanner sc = new Scanner(br);
-
+        Insert_question insert_question;
         while(sc.hasNext()){
 
             fileData[lineNo]=sc.nextLine();
@@ -48,10 +44,16 @@ public class Insert_question_with_file extends Database_connector {
 
                 this.option3 = fileData[lineNo];
 
-                String insert = "INSERT INTO " + subject
+                /*String insert = "INSERT INTO " + subject
                         + "(Question, Answer, Option1, Option2, Option3 ) VALUES ('" + question + "','" + answer + "','" + option1 + "','" + option2 + "','" + option3 + "')";
                 PreparedStatement insert_QnS = conn.prepareStatement(insert);
-                insert_QnS.executeUpdate();
+                insert_QnS.executeUpdate();*/
+                System.out.println(filename);
+                System.out.println(question);
+                System.out.println(answer);
+                System.out.println(option1);
+                System.out.println(option2);
+                System.out.println(option3);
 
             }
             lineNo++;
