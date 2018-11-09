@@ -1,0 +1,50 @@
+Which one of the below is not divide and conquer approach?
+Insertion Sort
+Merge Sort
+Shell Sort
+Heap Sort
+push() and pop() functions are found in
+queues
+lists
+stacks
+trees
+Recursion uses more memory space than iteration because
+it uses stack instead of queue.
+every recursive call has to be stored.
+both A & B are true.
+None of the above are true.
+Which of the following algorithm does not divide the list −
+linear search
+binary search
+merge sort
+quick sort
+What is the time complexity of inserting a node in a doubly linked list?
+O(nlogn)
+O(logn)
+O(n)
+O(1)
+In a stack, if a user tries to remove an element from empty stack it is called _________
+Underflow
+Empty collection
+Overflow
+Garbage Collection
+Which of the following applications may use a stack?
+A parentheses balancing program
+Tracking of local variables at run time
+Compiler Syntax Analyzer
+All of the mentioned
+What is the value of the postfix expression 6 3 2 4 + – *:
+Something between -5 and -15
+Something between 5 and -5
+Something between 15 and 100
+Something between 5 and 100
+In the worst case, the number of comparisons needed to search a singly linked list of length n for a given element is
+log 2 n
+n⁄2
+log 2 n – 1
+n
+In the worst case, the number of comparisons needed to search a singly linked list of length n for a given element is
+log2 n
+n
+log2 n – 1
+n/2
