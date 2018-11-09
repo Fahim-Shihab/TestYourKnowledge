@@ -1,7 +1,10 @@
-package Insert_window;
+package Insert_Question;
 
 import database.Insert_question;
+import debs.Mediator;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.Main;
 import sample.view.AlertBox;
 
 import java.awt.*;
@@ -161,11 +165,25 @@ public class Input_question_to_database extends Application  {
 
         });
 
+        Mediator med = new Mediator();
+        Button back = new Button("Back");
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                Main main = new Main(med);
+                try {
+                    main.start(window);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
 
 
 GridPane.setConstraints(add,1,6);
+GridPane.setConstraints(back,2,6);
         //StackPane layout = new StackPane();
-        grid.getChildren().addAll(subjects,question_label,type_question,answer_level,type_answer,option1_level,type_option1,option2_level,type_option2,option3_level,type_option3,add);
+        grid.getChildren().addAll(subjects, back, question_label,type_question,answer_level,type_answer,option1_level,type_option1,option2_level,type_option2,option3_level,type_option3,add);
         Scene scene = new Scene(grid, 350 , 300/*screenSize.getWidth()-100,screenSize.getHeight()-100*/);
         window.setScene(scene);
         window.show();

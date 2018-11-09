@@ -1,4 +1,4 @@
-package Insert_window;
+package Insert_Question;
 
 import database.Show_subject_table;
 

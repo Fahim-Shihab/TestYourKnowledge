@@ -54,7 +54,8 @@ public class Score extends Application {
     }
 
     private void init(GridPane gridPane) throws IOException, SQLException {
-        Show_score sh = new Show_score(userID,"Score");
+
+        Show_score sh = new Show_score(userID,""+SignIN.UserID);
         int length = sh.tablelength;
 
         Text text[]= new Text[length];
@@ -108,7 +109,7 @@ public class Score extends Application {
         text[0].setText("User");
         scr[0].setText(userID);
 
-        Show_score sh = new Show_score(userID,"Score");
+        Show_score sh = new Show_score(userID,SignIN.UserID);
         int length = sh.tablelength;
 
         for(i=0; i<length; i++){

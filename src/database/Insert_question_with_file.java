@@ -21,9 +21,9 @@ public class Insert_question_with_file extends Database_connector {
 
         this.subject = subject;
 
-        String delete = "DELETE FROM "+ subject;
+        /*String delete = "DELETE FROM "+ subject;
         PreparedStatement delete_QmS = conn.prepareStatement(delete);
-        delete_QmS.execute();
+        delete_QmS.execute();*/
 
         String[] fileData = new String[60];
         int lines=1, lineNo=1;

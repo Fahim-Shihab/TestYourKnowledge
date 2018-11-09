@@ -67,7 +67,7 @@ public class Authentication extends Application {
         GridPane gridPane = new GridPane();
 
         //Setting size for the pane
-        gridPane.setMinSize(800, 720);
+        gridPane.setMinSize(1200, 900);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));

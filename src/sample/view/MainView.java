@@ -1,4 +1,6 @@
 package sample.view;
+import Insert_Question.Input_question_to_database;
+import database.Insert_question;
 import debs.Mediator;
 import debs.Score;
 import javafx.event.ActionEvent;
@@ -36,6 +38,7 @@ public class MainView implements ViewMaker {
         Button score_button = new Button("Score");
 
         start_test.setOnMousePressed(e -> controller.handleOnPressButton1(e));
+
         score_button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -48,6 +51,20 @@ public class MainView implements ViewMaker {
 
             }
         });
+
+        Button addNewQuestion = new Button("Add Question");
+        addNewQuestion.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                try {
+                    Input_question_to_database insert_question_to_database = new Input_question_to_database();
+                    insert_question_to_database.start(stage);
+
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+            });
 
         BorderPane root = new BorderPane();
         //root.setLeft(vbox);
@@ -64,7 +81,7 @@ public class MainView implements ViewMaker {
         VBox vbox = new VBox();
         vbox.setSpacing(30);
         vbox.setPadding(new Insets(20, 20, 20, 20));
-        vbox.getChildren().addAll(start_test, score_button);
+        vbox.getChildren().addAll(start_test, score_button, addNewQuestion);
         vbox.setAlignment(Pos.CENTER);
 
         root.setCenter(vbox);

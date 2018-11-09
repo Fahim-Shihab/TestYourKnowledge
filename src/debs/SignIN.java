@@ -71,10 +71,9 @@ public class SignIN extends Application {
                     Score score= new Score(med);
                     Main main = new Main(med);
                     try {
+                        stage.close();
                         main.start(stage);
-                        /*score.start(Score.classStage);
-                        Stage stage = (Stage) button1.getScene().getWindow();*/
-                        //stage.close();
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -101,7 +100,7 @@ public class SignIN extends Application {
         GridPane gridPane = new GridPane();
 
         //Setting size for the pane
-        gridPane.setMinSize(800, 720);
+        gridPane.setMinSize(1200, 900);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));

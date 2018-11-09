@@ -62,8 +62,9 @@ public class ViewBase extends Database_connector implements ViewMaker {
         this.handlerNext = handlerNext;
 
         try {
-            PreparedStatement createTable1 = conn.prepareStatement("CREATE TABLE IF NOT EXISTS Score"+
-                    "(id int NOT NULL AUTO_INCREMENT," +
+            PreparedStatement createTable1 = conn.prepareStatement("CREATE TABLE IF NOT EXISTS "+
+                            SignIN.UserID+
+                    " (id int NOT NULL AUTO_INCREMENT," +
                     " UserID varchar(500), " +
                     "Subject varchar(500), " +
                     "Marks varchar(500)," +" PRIMARY KEY(id))") ;
@@ -114,6 +115,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
         int length = show.tableShowLength;
 
        root.add(time,10,0);
+       Text[] question_number;
         Text[] Question;
         Question = new Text[50];
         CheckBox[] answer = new CheckBox[50];
@@ -122,7 +124,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
         CheckBox[] Options3 = new CheckBox[50];
 
         for(int i=0; i<length; i++){
-            Question[i] = new Text(show.question[i]);
+            Question[i] = new Text((i+1)+". "+show.question[i]);
         }
         for(int i = 0; i<length; i++)
         {
@@ -199,13 +201,13 @@ public class ViewBase extends Database_connector implements ViewMaker {
                     else{
 
                     try {
-                        Show_score showScore = new Show_score(SignIN.UserID, "Score");
+                        Show_score showScore = new Show_score(SignIN.UserID, SignIN.UserID);
 
                         if(showScore.tablelength!=0){
                         for (int i = 0; i < showScore.tablelength; i++) {
                             if (showScore.user[i].equals(SignIN.UserID) &&
                                     showScore.subject_name[i].equals(subject)) {
-                                String update = "UPDATE Score SET Marks = '" + score +
+                                String update = "UPDATE "+SignIN.UserID+ " SET Marks = '" + score +
                                         "' WHERE UserID = '" + showScore.user[i] +
                                         "' and Subject = '" + showScore.subject_name[i] + "'";
                                 PreparedStatement insert_QnS = null;
@@ -217,8 +219,8 @@ public class ViewBase extends Database_connector implements ViewMaker {
                         }}
 
                         if (!doNotInsert) {
-                            String insert = "INSERT INTO Score " +
-                                    "(UserID, Subject, Marks ) VALUES ('" +
+                            String insert = "INSERT INTO " +SignIN.UserID+
+                                    " (UserID, Subject, Marks ) VALUES ('" +
                                     SignIN.UserID + "','" + subject + "','" + score + "')";
                             PreparedStatement insert_QnS = null;
 
