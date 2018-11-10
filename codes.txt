@@ -1,0 +1,80 @@
+9
+What is the output for n=10?
+main(){
+    int n= 10;
+    printf("%d",--n);
+}
+-->
+72
+What is the output for n=9?
+main(){
+    cout<<n*(n-1)<<endl;
+}
+-->
+15
+What is the return value for n= 5?
+int sum(int n){
+    int ans= 1;
+
+    for(int i=1;i<5;i++)
+	ans+= i;
+    
+    return ans;
+}
+-->
+4
+What is the return value for a=-9,b=4?
+int grt(int n){
+    return a>b ? a : b;    
+}
+-->
+512
+What is the return value for a= 8, b= 3?
+int power(int a, int b){
+    if(b==0)
+        return 1;
+
+    return a*power(a,b-1);
+}
+-->
+Odd
+What is the output for following code?
+main() 
+{ 
+     int i=5; 
+ 
+     switch(i%2) 
+     { 
+       case 0: 
+         printf("Even");
+       case 1: 
+	printf("Odd"); 
+     } 
+}
+-->
+512
+What is the return value for a= 8, b= 3?
+int power(int a, int b){
+    if(b==0)
+        return 1;
+
+    return a*power(a,b-1);
+}
+-->
+4
+What is the return value for a= 8, b= 12?
+int euclid(int a, int b){
+    if(b==0)  
+        return a;
+
+    return euclid(b,a%b);
+}
+-->
+desh
+What is the output for following code?
+main(){
+    String str= "Bangladesh";
+
+    for(int i=6;i<str.length();i++)
+        printf("%c",str[i]);
+}
