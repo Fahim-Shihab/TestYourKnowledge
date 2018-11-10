@@ -43,7 +43,7 @@ public class Score extends Application {
 
         classStage= stage;
         //Setting title to the Stage
-        stage.setTitle("CSS Example");
+        stage.setTitle("Score");
 
         //Adding scene to the stage
         stage.setScene(scene);

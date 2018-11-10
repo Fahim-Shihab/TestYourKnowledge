@@ -57,7 +57,7 @@ public class SignIN extends Application {
         PasswordField txtPass = new PasswordField();
 
         //Creating Buttons
-        Button button1 = new Button("SignIN");
+        Button button1 = new Button("Sign In");
         Button button2 = new Button("Not a Member?");
 
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -126,14 +126,14 @@ public class SignIN extends Application {
 
         text1.setStyle("-fx-font: normal bold 20px 'serif' ");
         text2.setStyle("-fx-font: normal bold 20px 'serif' ");
-        gridPane.setStyle("-fx-background-color: BEIGE;");
+        gridPane.setStyle("-fx-background-color: #009090;");
 
         //Creating a scene object
         scene = new Scene(gridPane);
 
         classStage = stage;
         //Setting title to the Stage
-        stage.setTitle("CSS Example");
+        stage.setTitle("Sign In");
 
         //Adding scene to the stage
         stage.setScene(scene);

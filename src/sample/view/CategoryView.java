@@ -43,6 +43,8 @@ public class CategoryView implements ViewMaker{
         Button BackButton = new Button("Back");
         BackButton.setOnMousePressed(e -> categoryController.handleOnFirstBack(e));
 
+        root.setStyle("-fx-background-color: #696969");
+
         Button closeButton = new Button("Close");
         closeButton.setOnMousePressed(e -> stage.close());
         ButtonBar bbar = new ButtonBar();

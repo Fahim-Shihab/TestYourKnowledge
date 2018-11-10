@@ -244,8 +244,11 @@ public class ViewBase extends Database_connector implements ViewMaker {
         ButtonBar bbar = new ButtonBar();
         bbar.getButtons().addAll(backButton, nextButton, closeButton);
         root.add(bbar,54,64);
+        root.setStyle("-fx-background-color: #696969;");
+        root.setAlignment(Pos.CENTER);
 
         scrollPane.setContent(root);
+        //root.setStyle("-fx-background-color: #005682;");
 
         return new Scene(scrollPane,1200,900);
     }

@@ -1,3 +1,5 @@
+package debs;
+
 import java.io.IOException;
 
 public abstract class Template {

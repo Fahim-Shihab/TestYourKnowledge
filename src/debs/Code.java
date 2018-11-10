@@ -1,3 +1,5 @@
+package debs;
+
 public class Code{
     String q, code, ans;
 

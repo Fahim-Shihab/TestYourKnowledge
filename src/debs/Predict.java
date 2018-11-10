@@ -1,3 +1,5 @@
+package debs;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,19 +15,25 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sample.Main;
+import sample.model.SceneName;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Predict extends Application {
-    public static Stage classStage;
+    public static Stage classStage = new Stage();
     ArrayList<Code> Codes= new ArrayList<>();
     Text txtQuestion, txtScore;
     TextArea txtCode;
     TextField txtAns;
     Button btnSubmit;
+    Button back;
+    Mediator med = new Mediator();
     int pos= 0, corr=0;
+    public Predict(){}
 
     private void init(GridPane gridPane) throws IOException {
         txtQuestion= new Text();
@@ -41,6 +49,20 @@ public class Predict extends Application {
         txtScore.setStyle("-fx-font: 16 arial;");
         txtScore.setFill(Color.WHITE);
         txtCode.setEditable(false);
+
+        Button back = new Button("Back");
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                //Main main = new Main(med);
+                //classStage.close();
+                //main.start(classStage);
+                //classStage.setScene(Main.getScenes().get(SceneName.MAIN));
+                classStage.close();
+            }
+        });
+
+
 
         gridPane.setMinSize(1200, 900);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -58,6 +80,7 @@ public class Predict extends Application {
         gridPane.add(txtAns, 0, 2);
         gridPane.add(btnSubmit, 0, 3);
         gridPane.add(txtScore, 0, 4);
+        gridPane.add(back,2,5);
 
         //gridPane.setStyle("-fx-background-color: BEIGE;");
         gridPane.setStyle("-fx-background-color: #005682;");
@@ -95,9 +118,11 @@ public class Predict extends Application {
     public void start(Stage stage) throws Exception {
         GridPane gridPane= new GridPane();
         init(gridPane);
-        classStage= stage;
+        //classStage= stage;
 
         Scene scene = new Scene(gridPane);
+
+        classStage= stage;
         stage.setTitle("Predict The Output");
         stage.setScene(scene);
         stage.show();
@@ -107,6 +132,7 @@ public class Predict extends Application {
         codeArranger.addQuestion();
         codeArranger.setQuestion(pos);
         codeArranger.setScore(pos);
+
 
         btnSubmit.setOnAction(new EventHandler<ActionEvent>() {
             @Override

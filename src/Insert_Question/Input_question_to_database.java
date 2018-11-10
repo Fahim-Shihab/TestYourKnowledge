@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import sample.Main;
+import sample.model.SceneName;
 import sample.view.AlertBox;
 
 import java.awt.*;
@@ -22,6 +23,7 @@ import java.sql.SQLException;
 public class Input_question_to_database extends Application  {
 
     private static String Question = null;
+    public static Stage wind = new Stage();
     private static String Answer = null;
     private static String option1 = null;
     private static String option2 = null;
@@ -34,12 +36,13 @@ public class Input_question_to_database extends Application  {
       //  launch(args);
     //}
 
-    public Input_question_to_database() throws Exception {
+    /*public Input_question_to_database() throws Exception {
         Stage  window = new Stage();
         //start(window);
-    }
+    }*/
 
     public void start(Stage window)throws Exception{
+        wind = window;
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 
@@ -141,8 +144,6 @@ public class Input_question_to_database extends Application  {
 
         add.setOnAction(e-> {
             try {
-
-
                 if ((String) subjects.getValue() == null) {
                     AlertBox.display("Error", "Choose your subject");
                 } else if ( type_question.getText().equalsIgnoreCase("")  || type_question.getText().equalsIgnoreCase(" ") || type_question.getText()== null) {
@@ -152,12 +153,8 @@ public class Input_question_to_database extends Application  {
                 } else if (type_option1.getText().equalsIgnoreCase("") || type_option1.getText().equalsIgnoreCase(" ") || type_option2.getText().equalsIgnoreCase("") || type_option2.getText().equalsIgnoreCase(" ")|| type_option3.getText().equalsIgnoreCase("") || type_option3.getText().equalsIgnoreCase(" ")) {
                     AlertBox.display("Error", "Type an option");
                 } else {
-
-
                     insert_question = new Insert_question((String) subjects.getValue(), type_question.getText(), type_answer.getText(), type_option1.getText(), type_option2.getText(), type_option3.getText());
-
-
-                    window.close();
+                    wind.close();
                 }
                 } catch(SQLException e1){
                     e1.printStackTrace();
@@ -165,17 +162,15 @@ public class Input_question_to_database extends Application  {
 
         });
 
-        Mediator med = new Mediator();
+//        Mediator med = new Mediator();
         Button back = new Button("Back");
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Main main = new Main(med);
-                try {
-                    main.start(window);
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
+//                Main main = new Main(med);
+                //main.start(window);
+                wind.close();
+                //window.setScene(Main.getScenes().get(SceneName.MAIN));
             }
         });
 
@@ -184,7 +179,7 @@ GridPane.setConstraints(add,1,6);
 GridPane.setConstraints(back,2,6);
         //StackPane layout = new StackPane();
         grid.getChildren().addAll(subjects, back, question_label,type_question,answer_level,type_answer,option1_level,type_option1,option2_level,type_option2,option3_level,type_option3,add);
-        Scene scene = new Scene(grid, 350 , 300/*screenSize.getWidth()-100,screenSize.getHeight()-100*/);
+        Scene scene = new Scene(grid, 500 , 300/*screenSize.getWidth()-100,screenSize.getHeight()-100*/);
         window.setScene(scene);
         window.show();
 

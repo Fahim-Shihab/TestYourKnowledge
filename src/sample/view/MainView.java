@@ -2,6 +2,7 @@ package sample.view;
 import Insert_Question.Input_question_to_database;
 import database.Insert_question;
 import debs.Mediator;
+import debs.Predict;
 import debs.Score;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,6 +36,22 @@ public class MainView implements ViewMaker {
         MainController controller = new MainController(stage);
 
         Button start_test = new Button("Test");
+
+        Button code_output_prediction = new Button("Code Output Prediction");
+        code_output_prediction.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                //stage.close();
+                Predict predict= new Predict();
+                try {
+                    predict.start(Predict.classStage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+
+            }
+        });
+
         Button score_button = new Button("Score");
 
         start_test.setOnMousePressed(e -> controller.handleOnPressButton1(e));
@@ -58,7 +75,7 @@ public class MainView implements ViewMaker {
             public void handle(ActionEvent e) {
                 try {
                     Input_question_to_database insert_question_to_database = new Input_question_to_database();
-                    insert_question_to_database.start(stage);
+                    insert_question_to_database.start(Input_question_to_database.wind);
 
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -73,7 +90,8 @@ public class MainView implements ViewMaker {
 
         label.setPrefHeight(120.0);
         label.prefWidthProperty().bind(root.widthProperty());
-        label.setStyle("-fx-border-style: dotted; -fx-border-width: 1 0 0 0;-fx-font-weight: bold");
+        label.setStyle("-fx-border-style: dotted; -fx-border-width: 1 0 0 0;" +
+                "-fx-font-weight: bold;-fx-background-color: #005682");
         label.setAlignment(Pos.BASELINE_CENTER);
         root.setTop(label);
 
@@ -81,7 +99,7 @@ public class MainView implements ViewMaker {
         VBox vbox = new VBox();
         vbox.setSpacing(30);
         vbox.setPadding(new Insets(20, 20, 20, 20));
-        vbox.getChildren().addAll(start_test, score_button, addNewQuestion);
+        vbox.getChildren().addAll(start_test, code_output_prediction, score_button, addNewQuestion);
         vbox.setAlignment(Pos.CENTER);
 
         root.setCenter(vbox);
@@ -93,6 +111,7 @@ public class MainView implements ViewMaker {
         bbar.setPadding(new Insets(10, 10, 10, 10));
         bbar.getButtons().add(closeButton);
         root.setBottom(bbar);
+        root.setStyle("-fx-background-color: #008080");
 
         Scene scene = new Scene(root, 1200, 900);
 
