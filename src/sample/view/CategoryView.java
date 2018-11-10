@@ -52,7 +52,7 @@ public class CategoryView implements ViewMaker{
         vbox.setSpacing(30);
         vbox.setPadding(new Insets(100));
         vbox.getChildren().addAll(button1, button2, button3);
-        vbox.setAlignment(Pos.CENTER);
+        vbox.setAlignment(Pos.TOP_CENTER);
 
         BorderPane root = new BorderPane();
         root.setCenter(vbox);
@@ -67,7 +67,7 @@ public class CategoryView implements ViewMaker{
         ButtonBar bbar = new ButtonBar();
         bbar.setPadding(new Insets(100));
         bbar.getButtons().addAll(BackButton,closeButton);
-        root.setBottom(bbar);
+        root.setTop(bbar);
 
         Scene scene = new Scene(root, 1200, 900);
         return scene;

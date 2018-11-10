@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -34,23 +35,37 @@ public class Score extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Creating a Grid Pane
+
+        Show_score sh = new Show_score(userID,""+SignIN.UserID);
+        int length = sh.tablelength;
+
         GridPane gridPane = new GridPane();
-        init(gridPane);
+        if(length>0) {
+            init(gridPane);
+            //Creating a scene object
+            Scene scene = new Scene(gridPane);
+
+            classStage= stage;
+            //Setting title to the Stage
+            stage.setTitle("Score");
+
+            //Adding scene to the stage
+            stage.setScene(scene);
 
 
-        //Creating a scene object
-        Scene scene = new Scene(gridPane);
+            //Displaying the contents of the stage
+            stage.show();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
 
-        classStage= stage;
-        //Setting title to the Stage
-        stage.setTitle("Score");
-
-        //Adding scene to the stage
-        stage.setScene(scene);
+            alert.setHeaderText("No score yet");
+            alert.showAndWait();
+        }
 
 
-        //Displaying the contents of the stage
-        stage.show();
+
     }
 
     private void init(GridPane gridPane) throws IOException, SQLException {
@@ -58,45 +73,61 @@ public class Score extends Application {
         Show_score sh = new Show_score(userID,""+SignIN.UserID);
         int length = sh.tablelength;
 
-        Text text[]= new Text[length];
-        TextField scr[]= new TextField[length];
 
-        for(int i=0;i<length;i++){
-            text[i]= new Text();
-            text[i].setFill(Color.WHITE);
-            scr[i]= new TextField();
-            scr[i].setEditable(false);
+
+        if(length>0) {
+
+            gridPane.setMinSize(800, 720);
+
+            Text text[] = new Text[length];
+            TextField scr[] = new TextField[length];
+
+            for (int i = 0; i < length; i++) {
+                text[i] = new Text();
+                text[i].setFill(Color.WHITE);
+                scr[i] = new TextField();
+                scr[i].setEditable(false);
+            }
+
+            //gridPane.setMinSize(800, 720);
+            gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+            //Setting the vertical and horizontal gaps between the columns
+            gridPane.setVgap(30);
+            gridPane.setHgap(30);
+
+            //Setting the Grid alignment
+            gridPane.setAlignment(Pos.CENTER);
+
+            Button back = new Button("Back");
+            back.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent e) {
+
+                    classStage.close();
+                }
+            });
+
+            //Arranging all the nodes in the grid
+            for (int i = 0; i < length; i++) gridPane.add(text[i], 0, i);
+            for (int i = 0; i < length; i++) gridPane.add(scr[i], 1, i);
+
+            gridPane.add(back, 4, length + 2);
+
+            //gridPane.setStyle("-fx-background-color: BEIGE;");
+            gridPane.setStyle("-fx-background-color: #008080;");
+
+            setScore(text, scr);
         }
 
-        gridPane.setMinSize(800, 720);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
 
-        //Setting the vertical and horizontal gaps between the columns
-        gridPane.setVgap(30);
-        gridPane.setHgap(30);
+            alert.setHeaderText("No score yet");
+            alert.showAndWait();
 
-        //Setting the Grid alignment
-        gridPane.setAlignment(Pos.CENTER);
-
-        Button back = new Button("Back");
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-
-                  classStage.close();
-            }
-        });
-
-        //Arranging all the nodes in the grid
-        for(int i=0;i<length;i++) gridPane.add(text[i], 0, i);
-        for(int i=0;i<length;i++) gridPane.add(scr[i], 1, i);
-
-        gridPane.add(back,4,length+2);
-
-        //gridPane.setStyle("-fx-background-color: BEIGE;");
-        gridPane.setStyle("-fx-background-color: #008080;");
-
-        setScore(text,scr);
+        }
 
     }
 
