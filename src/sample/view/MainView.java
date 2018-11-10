@@ -37,7 +37,7 @@ public class MainView implements ViewMaker {
 
         Button start_test = new Button("Test");
 
-        Button code_output_prediction = new Button("Code Output Prediction");
+        Button code_output_prediction = new Button("Predict The Output");
         code_output_prediction.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -91,7 +91,7 @@ public class MainView implements ViewMaker {
         label.setPrefHeight(120.0);
         label.prefWidthProperty().bind(root.widthProperty());
         label.setStyle("-fx-border-style: dotted; -fx-border-width: 1 0 0 0;" +
-                "-fx-font-weight: bold;-fx-background-color: #005682");
+                "-fx-font-weight: bold;-fx-background-color: #FFFFFF");
         label.setAlignment(Pos.BASELINE_CENTER);
         root.setTop(label);
 

@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -84,16 +85,18 @@ public class Authentication extends Application {
         gridPane.add(txtID, 1, 0);
         gridPane.add(text2, 0, 1);
         gridPane.add(txtPass, 1, 1);
-        gridPane.add(button1, 0, 2);
-        gridPane.add(button2, 1, 2);
+        gridPane.add(button1, 1, 2);
+        gridPane.add(button2, 1, 3);
 
         //Styling nodes
         button1.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
         button2.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
 
         text1.setStyle("-fx-font: normal bold 20px 'serif' ");
+        text1.setFill(Color.WHITE);
         text2.setStyle("-fx-font: normal bold 20px 'serif' ");
-        gridPane.setStyle("-fx-background-color: #00BFFF;");
+        text2.setFill(Color.WHITE);
+        gridPane.setStyle("-fx-background-color: #009090;");
 
         //Creating a scene object
         Scene scene = new Scene(gridPane);

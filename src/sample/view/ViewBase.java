@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -82,7 +83,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
         label.setFont(new Font(32));
         root.setHgap(5);
         root.setVgap(5);
-        root.setAlignment(Pos.BASELINE_LEFT);
+        root.setAlignment(Pos.BASELINE_CENTER);
 
 //        System.out.println("the........."+subject+"............");
 
@@ -125,20 +126,25 @@ public class ViewBase extends Database_connector implements ViewMaker {
 
         for(int i=0; i<length; i++){
             Question[i] = new Text((i+1)+". "+show.question[i]);
+            Question[i].setFill(Color.WHITE);
         }
         for(int i = 0; i<length; i++)
         {
             answer[i] = new CheckBox(show.answer[i]);
             answer[i].setMnemonicParsing(false);
+            answer[i].setTextFill(Color.WHITE);
 
             Options1[i] = new CheckBox(show.option1[i]);
             Options1[i].setMnemonicParsing(false);
+            Options1[i].setTextFill(Color.WHITE);
 
             Options2[i] = new CheckBox(show.option2[i]);
             Options2[i].setMnemonicParsing(false);
+            Options2[i].setTextFill(Color.WHITE);
 
             Options3[i] = new CheckBox(show.option3[i]);
             Options3[i].setMnemonicParsing(false);
+            Options3[i].setTextFill(Color.WHITE);
 
         }
 
@@ -244,7 +250,7 @@ public class ViewBase extends Database_connector implements ViewMaker {
         ButtonBar bbar = new ButtonBar();
         bbar.getButtons().addAll(backButton, nextButton, closeButton);
         root.add(bbar,54,64);
-        root.setStyle("-fx-background-color: #696969;");
+        root.setStyle("-fx-background-color: #008080;");
         root.setAlignment(Pos.CENTER);
 
         scrollPane.setContent(root);
